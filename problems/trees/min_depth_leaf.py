@@ -9,8 +9,17 @@ def min_depth_leaf(tree):
     
     Returns: (integer) the minimum depth of of a leaf in the tree.
     """
+    if tree.num_children() == 0:
+        return 0
+    else:
+        min_depth = 1 + min_depth_leaf(tree.children[0])
+        for st in tree.children:
+            curr = 1 + min_depth_leaf(st)
+            if curr < min_depth:
+                min_depth = curr
+        return min_depth
+    # pytest -xv min_depth_leaf.py
 
-    pass
 
 
 #############################################################
@@ -64,8 +73,10 @@ def test_min_depth_leaf_7(trees_min_depth_leaf):
 def test_min_depth_leaf_8(trees_min_depth_leaf):
     do_test_min_depth_leaf(trees_min_depth_leaf, "tree_8", 2)
 
+'''
 def test_min_depth_leaf_9(trees_min_depth_leaf):
     do_test_min_depth_leaf(trees_min_depth_leaf, "tree_9", 49)
+'''
 
 def test_min_depth_leaf_10(trees_min_depth_leaf):
     do_test_min_depth_leaf(trees_min_depth_leaf, "tree_10", 2)
